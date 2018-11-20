@@ -1,0 +1,28 @@
+{
+    "name": "faelv/re3",
+    "description": "A lightweight, all in one PHP framework",
+    "homepage": "https://github.com/faelv/re3",
+    "keywords": ["framework", "lightweight", "request", "resource", "response"],
+    "type": "library",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3"
+    },
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "faelv",
+            "email": "rafael_alt_dev@outlook.com",
+            "homepage": "https://github.com/faelv",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "suggest": {
+        "phpmailer/phpmailer": "PHPMailer is a full-featured email creation and transfer class for PHP"
+    },
+    "scripts": {
+        "lint": "vendor/bin/phpcs -p -v --colors --report=full ."
+    }
+}
