@@ -19,6 +19,11 @@
     "require": {
         "php": ">=7.0"
     },
+    "autoload": {
+        "psr-4": {
+            "Core\\Application\\": "Core/Application"
+        }
+    },
     "suggest": {
         "phpmailer/phpmailer": "PHPMailer is a full-featured email creation and transfer class for PHP"
     },
