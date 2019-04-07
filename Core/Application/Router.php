@@ -45,11 +45,11 @@ class Router {
    * @return bool True if there was a match.
    */
   protected function routeMatch(string $route, string $uri, array &$params) : bool {
-    $routeElements = explode('/', rtrim($route, '/'));
-    $uriElements = explode('/', rtrim($uri, '/'));
-
+    $routeElements = preg_split('/(?<=[^\\\])\/|^\//', trim($route, '/'));
     $routeCount = count($routeElements);
-    if ($routeCount != count($uriElements)) {
+    $uriElements = explode('/', trim($uri, '/'), $routeCount);
+
+    if (count($uriElements) < $routeCount) {
       return false;
     }
 
