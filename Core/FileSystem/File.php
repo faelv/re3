@@ -317,7 +317,11 @@ class File extends FileSystemObject {
     try {
       return $this->splFile->getSize();
     } catch (\Exception $ex) {
-      return false;
+      try {
+        return array_get_if_set($this->splFile->fstat(), 'size', false);
+      } catch (\Exception $ex) {
+        return false;
+      }
     }
   }
 
@@ -369,7 +373,13 @@ class File extends FileSystemObject {
    * @return \DateTime The date.
    */
   public function modifiedDate() : \DateTime {
-    return \DateTime::createFromFormat('U', $this->splFile->getMTime());
+    $mtime = 0;
+    try {
+      $mtime = $this->splFile->getMTime();
+    } catch (\Exception $ex) {
+      $mtime = array_get_if_set($this->splFile->fstat(), 'mtime', $mtime);
+    }
+    return \DateTime::createFromFormat('U', $mtime);
   }
 
   /**
