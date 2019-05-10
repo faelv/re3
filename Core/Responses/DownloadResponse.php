@@ -102,16 +102,23 @@ class DownloadResponse extends StaticResponse {
    * @return void
    */
   protected function outputContent() {
-    $this->file->set(0);
     if (!is_null($this->file)) {
       if (!$this->rateLimit) {
         parent::outputContent();
       } else {
         flush();
+        if (!$this->file->isOpen()) {
+          $this->file->open($this->file::MODE_READ);
+        } else {
+          $this->file->set(0);
+        }
         while (!$this->file->eof()) {
           echo $this->file->read((int)round($this->rateLimit * 1024, 0, PHP_ROUND_HALF_EVEN));
           flush();
           sleep(1);
+        }
+        if ($this->file->isOpen()) {
+          $this->file->close();
         }
       }
     }

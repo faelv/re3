@@ -70,6 +70,8 @@ class StaticResponse extends CacheableResponse {
     if (!is_null($this->file)) {
       if (!$this->file->isOpen()) {
         $this->file->open($this->file::MODE_READ);
+      } else {
+        $this->file->set(0);
       }
       $this->file->output();
       if ($this->file->isOpen()) {
