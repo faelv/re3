@@ -53,7 +53,9 @@ class StaticResponse extends CacheableResponse {
   protected function outputHeaders() {
     if (!is_null($this->file)) {
       $this->setHeader('Content-Type', $this->httpUtils->MIMETypeFromExtension($this->file->extension()));
-      $this->setHeader('Content-Length', $this->file->size());
+      if (false !== $length = $this->file->size()) {
+        $this->setHeader('Content-Length', (string)$length);
+      }
       $this->setModifiedDate($this->file->modifiedDate());
     }
     parent::outputHeaders();
