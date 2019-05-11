@@ -14,7 +14,7 @@ use Core\Application\App;
 use Core\Requests\Request;
 use Core\Resources\Resource;
 
-require __DIR__ . '/App.php';
+require_once __DIR__ . '/App.php';
 
 /**
  * Base class for apps invoked via CLI.

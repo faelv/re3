@@ -17,12 +17,12 @@ use Core\Application\DependencyInjector;
 use Core\Application\NamespaceFactory;
 use Core\Exceptions\CoreException;
 
-require __DIR__ . '/Autoloader.php';
-require __DIR__ . '/Logger.php';
-require __DIR__ . '/Router.php';
-require __DIR__ . '/DependencyInjector.php';
-require __DIR__ . '/NamespaceFactory.php';
-require __DIR__ . '/Polyfills.php';
+require_once __DIR__ . '/Autoloader.php';
+require_once __DIR__ . '/Logger.php';
+require_once __DIR__ . '/Router.php';
+require_once __DIR__ . '/DependencyInjector.php';
+require_once __DIR__ . '/NamespaceFactory.php';
+require_once __DIR__ . '/Polyfills.php';
 
 /**
  * Base class for apps.
