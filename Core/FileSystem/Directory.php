@@ -137,6 +137,7 @@ class Directory extends FileSystemObject implements \Iterator, \Countable {
         if ($entry == '.' || $entry == '..') {
           continue;
         }
+        $entry = $this->path . DIRECTORY_SEPARATOR . $entry;
         $entryType = filetype($entry);
         if ($entryType == 'dir') {
           $this->contents[] = new Directory($entry);
@@ -147,6 +148,7 @@ class Directory extends FileSystemObject implements \Iterator, \Countable {
     } finally {
       closedir($this->handle);
     }
+    return true;
   }
 
   /**
