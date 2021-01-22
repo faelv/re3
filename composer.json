@@ -20,9 +20,10 @@
         "php": ">=7.0"
     },
     "autoload": {
-        "psr-4": {
-            "Core\\Application\\": "Core/Application"
-        }
+        "classmap": [
+          "Core/Application/HTTPApp.php",
+          "Core/Application/CLIApp.php"
+        ]
     },
     "suggest": {
         "phpmailer/phpmailer": "PHPMailer is a full-featured email creation and transfer class for PHP"
