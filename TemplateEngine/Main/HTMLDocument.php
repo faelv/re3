@@ -61,11 +61,13 @@ class HTMLDocument extends TemplateSnippet {
    */
   protected function buildElementString(array $element) : string {
     $result = "<{$element['tag_name']}";
+
     foreach ($element['attributes'] as $attrName => $attrValue) {
-      if (is_string($attrName) && is_string($attrValue)) {
-        $result .= " $attrName=\"$attrValue\"";
+      if (is_string($attrName) && (is_scalar($attrValue) || is_null($attrValue))) {
+        $result .= ' ' . (is_null($attrValue) ? $attrName : "$attrName=\"$attrValue\"");
       }
     }
+
     if (!$element['has_end_tag']) {
       $result .= ' />';
     } else {
@@ -167,22 +169,21 @@ class HTMLDocument extends TemplateSnippet {
   /**
    * Adds an external style sheet file.
    *
-   * @param string $href      Style sheet URI/location
-   * @param string $media     Target media
-   * @param string $integrity Integrity hash
-   * @param string $cors      CORS (cross origin) policy
+   * @param string $href       Style sheet URI/location
+   * @param array  $attributes An array of extra attributes in name => value format (value can be null for boolean attributes)
    *
    * @return void
    */
-  public function addStyleSheet(string $href, string $media = 'all', string $integrity = null, string $cors = null) {
+  public function addStyleSheet(string $href, array $attributes = null) {
     $this->addElementToHead(
-      'link', [
-        'rel' => 'stylesheet',
-        'href' => $href,
-        'media' => $media,
-        'integrity' => $integrity,
-        'crossorigin' => $cors
-      ]
+      'link',
+      array_merge(
+        is_array($attributes) ? $attributes : [],
+        [
+          'href' => $href,
+          'rel' => 'stylesheet'
+        ]
+      )
     );
   }
 
@@ -202,17 +203,23 @@ class HTMLDocument extends TemplateSnippet {
    *
    * @param string $src       Script URI/location.
    * @param bool   $body      True if the script should be inserted into the body element, or False for the head element.
-   * @param string $integrity Integrity hash
-   * @param string $cors      CORS (cross origin) policy
+   * @param array  $attributes An array of extra attributes in name => value format (value can be null for boolean attributes)
    *
    * @return void
    */
-  public function addExternalScript(string $src, bool $body = true, string $integrity = null, string $cors = null) {
-    if ($body) {
-      $this->addElementToBody('script', ['src' => $src, 'integrity' => $integrity, 'crossorigin' => $cors], true);
-    } else {
-      $this->addElementToHead('script', ['src' => $src, 'integrity' => $integrity, 'crossorigin' => $cors], true);
-    }
+  public function addExternalScript(string $src, bool $body = true, array $attributes = null) {
+    $method = $body ? 'addElementToBody' : 'addElementToHead';
+
+    $this->$method(
+      'script',
+      array_merge(
+        is_array($attributes) ? $attributes : [],
+        [
+          'src' => $src
+        ]
+      ),
+      true
+    );
   }
 
   /**
