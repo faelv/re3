@@ -201,8 +201,8 @@ class HTMLDocument extends TemplateSnippet {
   /**
    * Adds an external script file.
    *
-   * @param string $src       Script URI/location.
-   * @param bool   $body      True if the script should be inserted into the body element, or False for the head element.
+   * @param string $src        Script URI/location.
+   * @param bool   $body       True if the script should be inserted into the body element, or False for the head element.
    * @param array  $attributes An array of extra attributes in name => value format (value can be null for boolean attributes)
    *
    * @return void
