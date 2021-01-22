@@ -24,6 +24,12 @@ require_once __DIR__ . '/App.php';
 class HTTPApp extends App {
 
   /**
+   * Request received
+   * @var \Core\Requests\HTTPRequest
+   */
+  protected $request = null;
+
+  /**
    * Called after the class instantiation. It's intended for setting up things like namespaces and routes.
    *
    * @return void
