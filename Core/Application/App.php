@@ -192,7 +192,12 @@ abstract class App {
     $this->loader->addNamespace('Core\\', $docRoot . '/Core');
     $this->loader->addNamespace('TemplateEngine\\', $docRoot . '/TemplateEngine');
     $this->loader->addNamespace('Database\\', $docRoot . '/Database');
-    $this->loader->addNamespace('Applets\\', dirname($docRoot) . '/applets');
+
+    try {
+      $appletsRoot = dirname((new \ReflectionClass(get_called_class()))->getFileName(), 3) . '/applets';
+      $this->loader->addNamespace('Applets\\', $appletsRoot);
+    } catch (\Throwable $th) {
+    }
 
     $this->dependencyInjector->addInjectionSource(
       'CryptUtils', '\\Core\\Utils\\CryptUtils', $this->dependencyInjector::SOURCE_CLASS, true
