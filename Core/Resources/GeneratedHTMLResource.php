@@ -104,7 +104,7 @@ class GeneratedHTMLResource extends CacheableResource {
       }
     }
     if ($this->outputContentLength) {
-      $this->setHeader('Content-Length', mb_strlen($this->documentResult));
+      $response->setHeader('Content-Length', mb_strlen($this->documentResult));
     }
     $response->setHeader('Content-Type', $this->httpUtils->MIMETypeFromExtension('html'));
     return $response;
