@@ -187,7 +187,7 @@ class File extends FileSystemObject {
    */
   protected function checkFileClosedOperation(string $opName) {
     if (!$this->isOpen()) {
-      throw CoreException::create('FileSystemException', "$opName cannot be performed on a closed file");
+      throw CoreException::create('FileSystemException', "$opName cannot be performed on a closed file: {$this->splFile->getPathname()}");
     }
   }
 
@@ -201,7 +201,7 @@ class File extends FileSystemObject {
    */
   protected function checkFileOpenOperation(string $opName) {
     if ($this->isOpen()) {
-      throw CoreException::create('FileSystemException', "$opName cannot be performed on a open file");
+      throw CoreException::create('FileSystemException', "$opName cannot be performed on a open file: {$this->splFile->getPathname()}");
     }
   }
 
