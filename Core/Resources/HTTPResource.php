@@ -34,7 +34,7 @@ class HTTPResource extends Resource {
    * Allowed HTTP request methods
    * @var array
    */
-  protected $allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'];
+  protected $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'CONNECT', 'TRACE'];
 
   /**
    * Stores a reference to the request object.
