@@ -191,7 +191,6 @@ class CLIResponse extends Response {
    * @param string $text A string.
    *
    * @return void
-   * @see \Core\Responses\CLIResponse->output()
    */
   public function setText(string $text) {
     $this->text = $text;
@@ -212,7 +211,6 @@ class CLIResponse extends Response {
    * @param string $text A string.
    *
    * @return void
-   * @see \Core\Responses\CLIResponse->output()
    */
   public function appendText(string $text) {
     $this->text .= $text;
@@ -225,7 +223,6 @@ class CLIResponse extends Response {
    * @param string $line A string.
    *
    * @return void
-   * @see \Core\Responses\CLIResponse->output()
    */
   public function appendLine(string $line) {
     $this->appendText(($this->text == '') ? $line : PHP_EOL . $line);
