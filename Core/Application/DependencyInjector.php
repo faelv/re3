@@ -62,7 +62,7 @@ class DependencyInjector {
     if (!isset($this->sources[$sourceId])) {
       return null;
     }
-    $source = $this->sources[$sourceId];
+    $source = &$this->sources[$sourceId];
     switch ($source['type']) {
       case self::SOURCE_STATIC:
         if (!$source['set']) {
