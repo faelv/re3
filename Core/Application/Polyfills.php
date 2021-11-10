@@ -171,7 +171,7 @@ class Polyfills {
           return true;
         }
       }
-      return count($values) > 0;
+      return false;
     }
 
     /**
