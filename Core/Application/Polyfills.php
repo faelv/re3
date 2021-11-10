@@ -206,7 +206,7 @@ class Polyfills {
     function is_false_all(...$values) : bool {
       return is_all(function ($value) {
         return $value === false;
-      });
+      }, ...$values);
     }
 
     /**
@@ -219,7 +219,7 @@ class Polyfills {
     function is_false_any(...$values) : bool {
       return is_any(function ($value) {
         return $value === false;
-      });
+      }, ...$values);
     }
 
     /**
@@ -232,7 +232,7 @@ class Polyfills {
     function is_true_all(...$values) : bool {
       return is_all(function ($value) {
         return $value === true;
-      });
+      }, ...$values);
     }
 
     /**
@@ -245,7 +245,7 @@ class Polyfills {
     function is_true_any(...$values) : bool {
       return is_any(function ($value) {
         return $value === true;
-      });
+      }, ...$values);
     }
 
     /**
@@ -258,7 +258,7 @@ class Polyfills {
     function is_empty_all(...$values) : bool {
       return is_all(function ($value) {
         return empty($value);
-      });
+      }, ...$values);
     }
 
     /**
@@ -271,7 +271,7 @@ class Polyfills {
     function is_empty_any(...$values) : bool {
       return is_any(function ($value) {
         return empty($value);
-      });
+      }, ...$values);
     }
 
     //-----------------------------------------------------------------------------
