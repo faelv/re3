@@ -140,62 +140,134 @@ class Polyfills {
       return true;
     }
 
+    /**
+     * Returns true if $func returns true for all values, false otherwise
+     *
+     * @param callable $func A callable that will receive a single parameter
+     * @param mixed ...$values Values passed to $func
+     *
+     * @return bool True if all values are true according to $func, false otherwise
+     */
     function is_all(callable $func, ...$values) : bool {
       foreach ($values as $value) {
         if (!(bool)call_user_func($func, $value)) {
           return false;
         }
       }
-      return true;
+      return count($values) > 0;
     }
 
+    /**
+     * Returns true if $func returns true for at least one value, false otherwise
+     *
+     * @param callable $func A callable that will receive a single parameter
+     * @param mixed ...$values Values passed to $func
+     *
+     * @return bool True if any value is true according to $func, false otherwise
+     */
     function is_any(callable $func, ...$values) : bool {
       foreach ($values as $value) {
         if ((bool)call_user_func($func, $value)) {
           return true;
         }
       }
-      return false;
+      return count($values) > 0;
     }
 
+    /**
+     * Returns true if all values are null, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if all values are null, false otherwise
+     */
     function is_null_all(...$values) : bool {
       return is_all('is_null', ...$values);
     }
 
+    /**
+     * Returns true if at least one value is null, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if at least one value is null, false otherwise
+     */
     function is_null_any(...$values) : bool {
       return is_any('is_null', ...$values);
     }
 
+    /**
+     * Returns true if all values are false, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if all values are false, false otherwise
+     */
     function is_false_all(...$values) : bool {
       return is_all(function ($value) {
         return $value === false;
       });
     }
 
+    /**
+     * Returns true if at least one value is false, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if at least one value is false, false otherwise
+     */
     function is_false_any(...$values) : bool {
       return is_any(function ($value) {
         return $value === false;
       });
     }
 
+    /**
+     * Returns true if all values are true, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if all values are true, false otherwise
+     */
     function is_true_all(...$values) : bool {
       return is_all(function ($value) {
         return $value === true;
       });
     }
 
+    /**
+     * Returns true if at least one value is true, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if at least one value is true, false otherwise
+     */
     function is_true_any(...$values) : bool {
       return is_any(function ($value) {
         return $value === true;
       });
     }
 
+    /**
+     * Returns true if all values are empty, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if all values are empty, false otherwise
+     */
     function is_empty_all(...$values) : bool {
       return is_all(function ($value) {
         return empty($value);
       });
     }
 
+    /**
+     * Returns true if at least one value is empty, false otherwise
+     *
+     * @param mixed ...$values Values to test
+     *
+     * @return bool True if at least one value is empty, false otherwise
+     */
     function is_empty_any(...$values) : bool {
       return is_any(function ($value) {
         return empty($value);
