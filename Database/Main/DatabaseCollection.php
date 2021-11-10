@@ -274,6 +274,22 @@ abstract class DatabaseCollection extends DatabaseClass implements \Iterator, \C
     return $this->removedItems;
   }
 
+  /**
+   * Converts a collection to an array, optionally converting the items too.
+   *
+   * @param bool $convertItems True to also convert this collection's items, false to keep them as objects.
+   *
+   * @return array An array of database objects or an array of arrays if $convertItems is true
+   */
+  public function toArray(bool $convertItems = true) : array {
+    return array_map(
+      function ($item) use ($convertItems) {
+        return $convertItems ? $item->toArray() : $item;
+      },
+      iterator_to_array($this, true)
+    );
+  }
+
   //Below are interface methods
 
   /**
