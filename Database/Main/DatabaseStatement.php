@@ -51,6 +51,10 @@ class DatabaseStatement extends \PDOStatement {
     $this->connection = $connection;
   }
 
+  public function __destruct() {
+    $this->connection = null;
+  }
+
   /**
    * Enables or disables logging.
    *

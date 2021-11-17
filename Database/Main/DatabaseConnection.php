@@ -137,6 +137,17 @@ class DatabaseConnection {
     $this->classFactory = new DatabaseClassFactory();
   }
 
+  final public function __destruct() {
+    foreach ($this->statementCache as &$value) {
+      $value[self::STATEMENT_SELECT] = null;
+      $value[self::STATEMENT_DELETE] = null;
+      $value[self::STATEMENT_UPDATE] = null;
+      $value[self::STATEMENT_INSERT] = null;
+    }
+
+    $this->pdo = null;
+  }
+
   /**
    * Enables or disables the automatic transactions for operations with collections. If enabled all operations that
    * loops through a collection's items will happen inside a transaction, at the end the transaction will always be
