@@ -51,6 +51,26 @@ class File extends FileSystemObject {
   const MODE_READ_WRITE_APPEND = 5;
 
   /**
+   * Creates and opens a file for writing only, placing the cursor at the beginning of the file. If the file already exists, it fails.
+   */
+  const MODE_CREATE = 6;
+
+  /**
+   * Creates and opens a file for reading and writing, placing the cursor at the beginning of the file. If the file already exists, it fails.
+   */
+  const MODE_READ_CREATE = 7;
+
+  /**
+   * Creates and opens the file for writing only. If the file does not exist, it is created. If it exists, places the cursor at the beginning of the file.
+   */
+  const MODE_LOOSE_CREATE = 8;
+
+  /**
+   * Creates and opens the file for reading and writing. If the file does not exist, it is created. If it exists, places the cursor at the beginning of the file.
+   */
+  const MODE_LOOSE_READ_CREATE = 9;
+
+  /**
    * Shared lock (reader)
    */
   const LOCK_SHARED = LOCK_SH;
@@ -245,6 +265,18 @@ class File extends FileSystemObject {
         break;
       case self::MODE_READ_WRITE_APPEND:
         $mode = 'a+b';
+        break;
+      case self::MODE_CREATE:
+        $mode = 'xb';
+        break;
+      case self::MODE_READ_CREATE:
+        $mode = 'x+b';
+        break;
+      case self::MODE_LOOSE_CREATE:
+        $mode = 'cb';
+        break;
+      case self::MODE_LOOSE_READ_CREATE:
+        $mode = 'c+b';
         break;
       default: //MODE_READ
         $mode = 'rb';
