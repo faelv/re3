@@ -58,7 +58,9 @@ class HTTPUtils {
   protected $MIMETypes = [
     '7z'      => 'application/x-7z-compressed',
     'aac'     => 'audio/x-aac',
+    'apng'    => 'image/apng',
     'atom'    => 'application/atom+xml',
+    'avif'    => 'image/avif',
     'bmp'     => 'image/bmp',
     'bz'      => 'application/x-bzip',
     'bz2'     => 'application/x-bzip2',
@@ -113,6 +115,7 @@ class HTTPUtils {
     'txt'     => 'text/plain',
     'wav'     => 'audio/x-wav',
     'webm'    => 'video/webm',
+    'webp'    => 'image/webp',
     'wma'     => 'audio/x-ms-wma',
     'wmv'     => 'video/x-ms-wmv',
     'woff'    => 'application/x-font-woff',
