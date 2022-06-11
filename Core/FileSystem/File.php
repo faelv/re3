@@ -576,7 +576,7 @@ class File extends FileSystemObject {
   /**
    * Move the file to another location.
    *
-   * @param type $destination Destination.
+   * @param string $destination Destination.
    *
    * @return bool True on success.
    * @throws \Core\Exceptions\FileSystemException
