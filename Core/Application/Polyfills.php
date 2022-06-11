@@ -204,9 +204,12 @@ class Polyfills {
      * @return bool True if all values are false, false otherwise
      */
     function is_false_all(...$values) : bool {
-      return is_all(function ($value) {
-        return $value === false;
-      }, ...$values);
+      return is_all(
+        function ($value) {
+          return $value === false;
+        },
+        ...$values
+      );
     }
 
     /**
@@ -217,9 +220,12 @@ class Polyfills {
      * @return bool True if at least one value is false, false otherwise
      */
     function is_false_any(...$values) : bool {
-      return is_any(function ($value) {
-        return $value === false;
-      }, ...$values);
+      return is_any(
+        function ($value) {
+          return $value === false;
+        },
+        ...$values
+      );
     }
 
     /**
@@ -230,9 +236,12 @@ class Polyfills {
      * @return bool True if all values are true, false otherwise
      */
     function is_true_all(...$values) : bool {
-      return is_all(function ($value) {
-        return $value === true;
-      }, ...$values);
+      return is_all(
+        function ($value) {
+          return $value === true;
+        },
+        ...$values
+      );
     }
 
     /**
@@ -243,9 +252,12 @@ class Polyfills {
      * @return bool True if at least one value is true, false otherwise
      */
     function is_true_any(...$values) : bool {
-      return is_any(function ($value) {
-        return $value === true;
-      }, ...$values);
+      return is_any(
+        function ($value) {
+          return $value === true;
+        },
+        ...$values
+      );
     }
 
     /**
@@ -256,9 +268,12 @@ class Polyfills {
      * @return bool True if all values are empty, false otherwise
      */
     function is_empty_all(...$values) : bool {
-      return is_all(function ($value) {
-        return empty($value);
-      }, ...$values);
+      return is_all(
+        function ($value) {
+          return empty($value);
+        },
+        ...$values
+      );
     }
 
     /**
@@ -269,9 +284,12 @@ class Polyfills {
      * @return bool True if at least one value is empty, false otherwise
      */
     function is_empty_any(...$values) : bool {
-      return is_any(function ($value) {
-        return empty($value);
-      }, ...$values);
+      return is_any(
+        function ($value) {
+          return empty($value);
+        },
+        ...$values
+      );
     }
 
     //-----------------------------------------------------------------------------
