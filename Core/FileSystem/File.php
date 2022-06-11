@@ -51,14 +51,19 @@ class File extends FileSystemObject {
   const MODE_READ_WRITE_APPEND = 5;
 
   /**
-   * Locks a file for writing, allowing reads.
+   * Shared lock (reader)
    */
   const LOCK_SHARED = LOCK_SH;
 
   /**
-   * Locks a file for writing, not allowing reads.
+   * Exclusive lock (writer).
    */
   const LOCK_EXCLUSIVE = LOCK_EX;
+
+  /**
+   * Non-blocking operation while locking.
+   */
+  const LOCK_NON_BLOCKING = LOCK_NB;
 
   /**
    * Internal file object
@@ -527,13 +532,14 @@ class File extends FileSystemObject {
    * Try to acquire a lock to the file.
    *
    * @param int $mode One the LOCK_* constants.
+   * @param int $wouldBlock The optional third argument is set to 1 if the lock would block.
    *
    * @return bool True on success.
    * @throws \Core\Exceptions\FileSystemException
    */
-  public function lock(int $mode = self::LOCK_EXCLUSIVE) : bool {
+  public function lock(int $mode = self::LOCK_EXCLUSIVE, int &$wouldBlock = null) : bool {
     $this->checkFileClosedOperation(__FUNCTION__);
-    return $this->splFile->flock($mode);
+    return $this->splFile->flock($mode, $wouldBlock);
   }
 
   /**
