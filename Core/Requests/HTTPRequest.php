@@ -169,6 +169,43 @@ class HTTPRequest extends Request {
   }
 
   /**
+   * Returns all data of a type sent with the request
+   *
+   * @param int $type Source of the data, one of the DATA_* constants.
+   *
+   * @return array An array containing the data
+   * @throws \LogicException
+   */
+  public function getAllData(int $type) : array {
+    $value = [];
+
+    switch ($type) {
+      case self::DATA_COOKIE:
+        $value = $_COOKIE;
+        break;
+      case self::DATA_POST:
+        $value = $_POST;
+        break;
+      case self::DATA_POST_RAW:
+        $value = [file_get_contents('php://input')];
+        break;
+      case self::DATA_QUERY:
+        $value = $_GET;
+        break;
+      case self::DATA_URI_PARAM:
+        $value = $this->URIData;
+        break;
+      case self::DATA_UPLOADED_FILE:
+        $value = $_FILES;
+        break;
+      default:
+        throw new \LogicException('Invalid parameter: type');
+    }
+
+    return $value;
+  }
+
+  /**
    * Returns the value of a GET parameter.
    *
    * @param string   $name           Parameter name
@@ -273,6 +310,15 @@ class HTTPRequest extends Request {
    */
   public function getHeader(string $name, $default = null) {
     return isset($_SERVER[$name]) ? $_SERVER[$name] : $default;
+  }
+
+  /**
+   * Returns an array with all headers.
+   *
+   * @return array An array in a key => value formats
+   */
+  public function getAllHeaders() : array {
+    return $_SERVER;
   }
 
   /**
