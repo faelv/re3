@@ -292,6 +292,57 @@ class Polyfills {
       );
     }
 
+    if (!function_exists('str_starts_with')) {
+      /**
+       * Checks if a string starts with a given substring
+       *
+       * @param string $haystack The string to search in.
+       * @param string $needle The substring to search for in the haystack.
+       *
+       * @return bool Returns true if haystack begins with needle, false otherwise.
+       *
+       * @link https://github.com/laravel/framework/blob/8.x/src/Illuminate/Support/Str.php
+       * @link https://www.php.net/manual/en/function.str-starts-with.php
+       */
+      function str_starts_with($haystack, $needle) {
+        return (string)$needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
+      }
+    }
+
+    if (!function_exists('str_ends_with')) {
+      /**
+       * Checks if a string ends with a given substring
+       *
+       * @param string $haystack The string to search in.
+       * @param string $needle The substring to search for in the haystack.
+       *
+       * @return bool Returns true if haystack ends with needle, false otherwise.
+       *
+       * @link https://github.com/laravel/framework/blob/8.x/src/Illuminate/Support/Str.php
+       * @link https://www.php.net/manual/en/function.str-ends-with
+       */
+      function str_ends_with($haystack, $needle) {
+        return $needle !== '' && substr($haystack, -strlen($needle)) === (string)$needle;
+      }
+    }
+
+    if (!function_exists('str_contains')) {
+      /**
+       * Determine if a string contains a given substring
+       *
+       * @param string $haystack The string to search in.
+       * @param string $needle The substring to search for in the haystack.
+       *
+       * @return bool Returns true if needle is in haystack, false otherwise.
+       *
+       * @link https://github.com/laravel/framework/blob/8.x/src/Illuminate/Support/Str.php
+       * @link https://www.php.net/manual/en/function.str-contains
+       */
+      function str_contains($haystack, $needle) {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+      }
+    }
+
     //-----------------------------------------------------------------------------
   }
 
