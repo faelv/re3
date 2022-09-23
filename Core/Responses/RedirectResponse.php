@@ -32,7 +32,7 @@ class RedirectResponse extends CacheableResponse {
   protected $location = '';
 
   /**
-   * Constructor.
+   * After constructor.
    *
    * @param string $location  Redirection location.
    * @param bool   $permanent True to use the permanent redirection HTTP status code or False to use the found HTTP
@@ -40,7 +40,7 @@ class RedirectResponse extends CacheableResponse {
    *
    * @return void
    */
-  public function __construct(string $location = null, bool $permanent = false) {
+  public function __created(string $location = null, bool $permanent = false) {
     if (!is_null($location)) {
       $this->setLocation($location);
     }
@@ -56,6 +56,8 @@ class RedirectResponse extends CacheableResponse {
    */
   public function setPermanent(bool $value) {
     $this->permanent = $value;
+    $this->statusCode = $this->permanent ? $this->httpUtils::STATUS_MOVED_PERMANENTLY : $this->httpUtils::STATUS_FOUND;
+    $this->statusString = $this->httpUtils->statusStringFromCode($this->statusCode);
   }
 
   /**
@@ -67,6 +69,8 @@ class RedirectResponse extends CacheableResponse {
    */
   public function setLocation(string $value) {
     $this->location = $value;
+    $this->setHeader('Location', $this->location);
+    $this->setCacheable(false);
   }
 
   /**
@@ -85,28 +89,6 @@ class RedirectResponse extends CacheableResponse {
    */
   public function getLocation() : string {
     return $this->location;
-  }
-
-  /**
-   * Outputs the HTTP status header.
-   *
-   * @return void
-   */
-  protected function outputStatus() {
-    $this->statusCode = $this->permanent ? $this->httpUtils::STATUS_MOVED_PERMANENTLY : $this->httpUtils::STATUS_FOUND;
-    $this->statusString = $this->httpUtils->statusStringFromCode($this->statusCode);
-    parent::outputStatus();
-  }
-
-  /**
-   * Outputs HTTP response headers.
-   *
-   * @return void
-   */
-  protected function outputHeaders() {
-    $this->setHeader('Location', $this->location);
-    $this->setCacheable(false);
-    parent::outputHeaders();
   }
 
 }
