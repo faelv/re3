@@ -48,9 +48,15 @@ abstract class NamespaceFactory {
     }
     if (class_exists($class, true)) {
       $instance = new $class(...$extra);
+
       if (!is_null(static::$dependencyInjector)) {
         static::$dependencyInjector->injectInto($instance);
       }
+
+      if (is_callable([$instance, '__created'])) {
+        $instance->__created(...$extra);
+      }
+
       return $instance;
     } else {
       throw CoreException::create('FactoryException', "Class $class does not exists", 0, null, $class);
