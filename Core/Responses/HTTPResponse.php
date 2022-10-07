@@ -105,6 +105,26 @@ class HTTPResponse extends Response {
   }
 
   /**
+   * Sets HTTP protocol version. Proper server support is needed and some servers may ignore or replace the version specified here.
+   *
+   * @param string $value Version
+   *
+   * @return void
+   */
+  public function setHTTPVersion(string $value) {
+    $this->httpVersion = $value;
+  }
+
+  /**
+   * Returns the current defined HTTP protocol version.
+   *
+   * @return string Version.
+   */
+  public function getHTTPVersion() : string {
+    return $this->httpVersion;
+  }
+
+  /**
    * Sets the HTTP status code.
    *
    * @param int $value Status code
