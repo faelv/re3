@@ -25,16 +25,19 @@ class CacheableResource extends HTTPResource {
    * @return array An array of etag strings.
    */
   protected function getRequestETag() : array {
-    $etag = $this->request->getHeader('HTTP_IF_NONE_MATCH', null);
-    if (is_string($etag)) {
-      $etag = explode(',', $etag);
-      for ($i = 0; $i < count($etag); $i++) {
-        $etag[$i] = trim($etag[$i], '\'" ');
+    $header = $this->request->getHeader('HTTP_IF_NONE_MATCH', null);
+    $etags = [];
+
+    if (is_string($header)) {
+      $etags = preg_split('/(?<=(?:"|\'))\s*,|,\s*(?=(?:"|\'))/', $header, -1, PREG_SPLIT_NO_EMPTY);
+      if (!is_array($etags)) {
+        $etags = [];
+      } else {
+        $etags = array_map('trim', $etags);
       }
-      return $etag;
-    } else {
-      return [];
     }
+
+    return $etags;
   }
 
   /**
@@ -52,7 +55,18 @@ class CacheableResource extends HTTPResource {
   }
 
   /**
-   * Checks if an ETag matches the ones of the request. If true, then the cache is considered fresh. Only one etag needs
+   * Checks if an ETag is an weak ETag (starts with W/).
+   *
+   * @param string $etag The ETag value.
+   *
+   * @return bool True if it's a weak ETag, false otherwise.
+   */
+  protected function ETagIsWeak(string $etag) : bool {
+    return str_starts_with($etag, 'W/');
+  }
+
+  /**
+   * Checks if an ETag matches the ones of the request using strong comparison. If true, then the cache is considered fresh. Only one etag needs
    * to match.
    *
    * @param string $etag The ETag value.
@@ -60,12 +74,18 @@ class CacheableResource extends HTTPResource {
    * @return bool True if it matches.
    */
   protected function ETagIsFresh(string $etag) : bool {
+    if ($this->ETagIsWeak($etag)) {
+      return false;
+    }
+
     $reqETags = $this->getRequestETag();
+
     foreach ($reqETags as $value) {
-      if ($value == $etag) {
+      if ($value === $etag && !$this->ETagIsWeak($value)) {
         return true;
       }
     }
+
     return false;
   }
 

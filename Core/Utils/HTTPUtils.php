@@ -211,15 +211,14 @@ class HTTPUtils {
   }
 
   /**
-   * Gets a hash of a string. Intended to be used for ETags since it uses a fast algorithm and collisions are not
-   * much of a problem.
+   * Gets a strong ETag using a md5 hash of a string.
    *
    * @param string $string A string.
    *
    * @return string
    */
   public function getETagHash(string $string) : string {
-    return md5($string);
+    return '"' . md5($string) . '"';
   }
 
 }
